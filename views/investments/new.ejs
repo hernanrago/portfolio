@@ -36,8 +36,13 @@
           </div>
           
           <div class="form-group">
-            <label for="instrument">Instrument:</label>
-            <input type="text" id="instrument" name="instrument" required>
+            <label for="instrument_id">Instrument:</label>
+            <select id="instrument_id" name="instrument_id" required>
+              <option value="">Select instrument...</option>
+              <% instruments.forEach(function(instrument) { %>
+                <option value="<%= instrument.id %>"><%= instrument.symbol %> - <%= instrument.name %></option>
+              <% }); %>
+            </select>
           </div>
           
           <div class="form-group">

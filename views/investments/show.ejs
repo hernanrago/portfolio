@@ -41,7 +41,10 @@
         </div>
         <div class="detail-row">
           <span class="detail-label">Instrument:</span>
-          <span class="detail-value"><%= investment.instrument %></span>
+          <% const instrument = investment.getInstrument(); %>
+          <span class="detail-value">
+            <%= instrument ? `${instrument.symbol} - ${instrument.name}` : 'N/A' %>
+          </span>
         </div>
         <div class="detail-row">
           <span class="detail-label">Sold:</span>

@@ -1,3 +1,5 @@
+const Instrument = require('./Instrument');
+
 class Investment {
   constructor(data = {}) {
     this.id = data.id || null;
@@ -5,7 +7,7 @@ class Investment {
     this.date = data.date || '';
     this.broker = data.broker || '';
     this.destination = data.destination || '';
-    this.instrument = data.instrument || '';
+    this.instrument_id = data.instrument_id || null;
     this.nominals = data.nominals || 0;
     this.purchase_price = data.purchase_price || 0;
     this.current_price = data.current_price || 0;
@@ -21,6 +23,10 @@ class Investment {
     this.return_percentage_USD = data.return_percentage_USD || 0;
     this.tna_USD = data.tna_USD || 0;
     this.average_returns = data.average_returns || 0;
+  }
+
+  getInstrument() {
+    return this.instrument_id ? Instrument.getById(this.instrument_id) : null;
   }
 
   static investments = [];
@@ -60,12 +66,18 @@ class Investment {
   }
 
   static seed() {
+    // First seed instruments
+    Instrument.seed();
+    
+    // Find ABEV instrument
+    const abevInstrument = Instrument.instruments.find(inst => inst.symbol === 'ABEV');
+    
     this.create({
       sold: false,
       date: '2024-04-16',
       broker: 'Balanz',
       destination: 'largo_plazo',
-      instrument: 'ABEV',
+      instrument_id: abevInstrument ? abevInstrument.id : null,
       nominals: 13.00,
       purchase_price: 7611.73,
       current_price: 8910.00,

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Investment = require('../models/Investment');
+var Instrument = require('../models/Instrument');
 
 Investment.seed();
 
@@ -10,7 +11,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/new', function(req, res, next) {
-  res.render('investments/new', { title: 'New Investment' });
+  const instruments = Instrument.getActive();
+  res.render('investments/new', { title: 'New Investment', instruments: instruments });
 });
 
 router.post('/', function(req, res, next) {
@@ -19,7 +21,7 @@ router.post('/', function(req, res, next) {
     date: req.body.date,
     broker: req.body.broker,
     destination: req.body.destination,
-    instrument: req.body.instrument,
+    instrument_id: parseInt(req.body.instrument_id) || null,
     nominals: parseFloat(req.body.nominals) || 0,
     purchase_price: parseFloat(req.body.purchase_price) || 0,
     current_price: parseFloat(req.body.current_price) || 0,
@@ -54,7 +56,8 @@ router.get('/:id/edit', function(req, res, next) {
   if (!investment) {
     return res.status(404).render('error', { message: 'Investment not found' });
   }
-  res.render('investments/edit', { title: 'Edit Investment', investment: investment });
+  const instruments = Instrument.getActive();
+  res.render('investments/edit', { title: 'Edit Investment', investment: investment, instruments: instruments });
 });
 
 router.post('/:id', function(req, res, next) {
@@ -63,7 +66,7 @@ router.post('/:id', function(req, res, next) {
     date: req.body.date,
     broker: req.body.broker,
     destination: req.body.destination,
-    instrument: req.body.instrument,
+    instrument_id: parseInt(req.body.instrument_id) || null,
     nominals: parseFloat(req.body.nominals) || 0,
     purchase_price: parseFloat(req.body.purchase_price) || 0,
     current_price: parseFloat(req.body.current_price) || 0,

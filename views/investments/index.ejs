@@ -41,7 +41,10 @@
               <td><%= investment.id %></td>
               <td><%= investment.date %></td>
               <td><%= investment.broker %></td>
-              <td><%= investment.instrument %></td>
+              <td>
+                <% const instrument = investment.getInstrument(); %>
+                <%= instrument ? instrument.symbol : 'N/A' %>
+              </td>
               <td><%= investment.sold ? 'Yes' : 'No' %></td>
               <td>$<%= investment.purchase_price.toFixed(2) %></td>
               <td>$<%= investment.current_price.toFixed(2) %></td>
