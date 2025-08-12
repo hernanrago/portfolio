@@ -24,19 +24,9 @@ router.post('/', function(req, res, next) {
     instrument_id: parseInt(req.body.instrument_id) || null,
     nominals: parseFloat(req.body.nominals) || 0,
     purchase_price: parseFloat(req.body.purchase_price) || 0,
-    current_price: parseFloat(req.body.current_price) || 0,
     total_purchase_ARS: parseFloat(req.body.total_purchase_ARS) || 0,
     dollar_MEP_purchase_date: parseFloat(req.body.dollar_MEP_purchase_date) || 0,
-    total_purchase_USD: parseFloat(req.body.total_purchase_USD) || 0,
-    total_current_ARS: parseFloat(req.body.total_current_ARS) || 0,
-    return_ARS: parseFloat(req.body.return_ARS) || 0,
-    return_percentage_ARS: parseFloat(req.body.return_percentage_ARS) || 0,
-    tna_ARS: parseFloat(req.body.tna_ARS) || 0,
-    total_current_USD: parseFloat(req.body.total_current_USD) || 0,
-    return_USD: parseFloat(req.body.return_USD) || 0,
-    return_percentage_USD: parseFloat(req.body.return_percentage_USD) || 0,
-    tna_USD: parseFloat(req.body.tna_USD) || 0,
-    average_returns: parseFloat(req.body.average_returns) || 0
+    total_purchase_USD: parseFloat(req.body.total_purchase_USD) || 0
   };
   
   Investment.create(investmentData);
@@ -69,19 +59,9 @@ router.post('/:id', function(req, res, next) {
     instrument_id: parseInt(req.body.instrument_id) || null,
     nominals: parseFloat(req.body.nominals) || 0,
     purchase_price: parseFloat(req.body.purchase_price) || 0,
-    current_price: parseFloat(req.body.current_price) || 0,
     total_purchase_ARS: parseFloat(req.body.total_purchase_ARS) || 0,
     dollar_MEP_purchase_date: parseFloat(req.body.dollar_MEP_purchase_date) || 0,
-    total_purchase_USD: parseFloat(req.body.total_purchase_USD) || 0,
-    total_current_ARS: parseFloat(req.body.total_current_ARS) || 0,
-    return_ARS: parseFloat(req.body.return_ARS) || 0,
-    return_percentage_ARS: parseFloat(req.body.return_percentage_ARS) || 0,
-    tna_ARS: parseFloat(req.body.tna_ARS) || 0,
-    total_current_USD: parseFloat(req.body.total_current_USD) || 0,
-    return_USD: parseFloat(req.body.return_USD) || 0,
-    return_percentage_USD: parseFloat(req.body.return_percentage_USD) || 0,
-    tna_USD: parseFloat(req.body.tna_USD) || 0,
-    average_returns: parseFloat(req.body.average_returns) || 0
+    total_purchase_USD: parseFloat(req.body.total_purchase_USD) || 0
   };
   
   const updatedInvestment = Investment.update(req.params.id, investmentData);
