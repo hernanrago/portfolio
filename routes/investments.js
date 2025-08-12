@@ -1,0 +1,99 @@
+var express = require('express');
+var router = express.Router();
+var Investment = require('../models/Investment');
+
+Investment.seed();
+
+router.get('/', function(req, res, next) {
+  const investments = Investment.getAll();
+  res.render('investments/index', { title: 'Investments', investments: investments });
+});
+
+router.get('/new', function(req, res, next) {
+  res.render('investments/new', { title: 'New Investment' });
+});
+
+router.post('/', function(req, res, next) {
+  const investmentData = {
+    sold: req.body.sold === 'on',
+    date: req.body.date,
+    broker: req.body.broker,
+    destination: req.body.destination,
+    instrument: req.body.instrument,
+    nominals: parseFloat(req.body.nominals) || 0,
+    purchase_price: parseFloat(req.body.purchase_price) || 0,
+    current_price: parseFloat(req.body.current_price) || 0,
+    total_purchase_ARS: parseFloat(req.body.total_purchase_ARS) || 0,
+    dollar_MEP_purchase_date: parseFloat(req.body.dollar_MEP_purchase_date) || 0,
+    total_purchase_USD: parseFloat(req.body.total_purchase_USD) || 0,
+    total_current_ARS: parseFloat(req.body.total_current_ARS) || 0,
+    return_ARS: parseFloat(req.body.return_ARS) || 0,
+    return_percentage_ARS: parseFloat(req.body.return_percentage_ARS) || 0,
+    tna_ARS: parseFloat(req.body.tna_ARS) || 0,
+    total_current_USD: parseFloat(req.body.total_current_USD) || 0,
+    return_USD: parseFloat(req.body.return_USD) || 0,
+    return_percentage_USD: parseFloat(req.body.return_percentage_USD) || 0,
+    tna_USD: parseFloat(req.body.tna_USD) || 0,
+    average_returns: parseFloat(req.body.average_returns) || 0
+  };
+  
+  Investment.create(investmentData);
+  res.redirect('/investments');
+});
+
+router.get('/:id', function(req, res, next) {
+  const investment = Investment.getById(req.params.id);
+  if (!investment) {
+    return res.status(404).render('error', { message: 'Investment not found' });
+  }
+  res.render('investments/show', { title: 'Investment Details', investment: investment });
+});
+
+router.get('/:id/edit', function(req, res, next) {
+  const investment = Investment.getById(req.params.id);
+  if (!investment) {
+    return res.status(404).render('error', { message: 'Investment not found' });
+  }
+  res.render('investments/edit', { title: 'Edit Investment', investment: investment });
+});
+
+router.post('/:id', function(req, res, next) {
+  const investmentData = {
+    sold: req.body.sold === 'on',
+    date: req.body.date,
+    broker: req.body.broker,
+    destination: req.body.destination,
+    instrument: req.body.instrument,
+    nominals: parseFloat(req.body.nominals) || 0,
+    purchase_price: parseFloat(req.body.purchase_price) || 0,
+    current_price: parseFloat(req.body.current_price) || 0,
+    total_purchase_ARS: parseFloat(req.body.total_purchase_ARS) || 0,
+    dollar_MEP_purchase_date: parseFloat(req.body.dollar_MEP_purchase_date) || 0,
+    total_purchase_USD: parseFloat(req.body.total_purchase_USD) || 0,
+    total_current_ARS: parseFloat(req.body.total_current_ARS) || 0,
+    return_ARS: parseFloat(req.body.return_ARS) || 0,
+    return_percentage_ARS: parseFloat(req.body.return_percentage_ARS) || 0,
+    tna_ARS: parseFloat(req.body.tna_ARS) || 0,
+    total_current_USD: parseFloat(req.body.total_current_USD) || 0,
+    return_USD: parseFloat(req.body.return_USD) || 0,
+    return_percentage_USD: parseFloat(req.body.return_percentage_USD) || 0,
+    tna_USD: parseFloat(req.body.tna_USD) || 0,
+    average_returns: parseFloat(req.body.average_returns) || 0
+  };
+  
+  const updatedInvestment = Investment.update(req.params.id, investmentData);
+  if (!updatedInvestment) {
+    return res.status(404).render('error', { message: 'Investment not found' });
+  }
+  res.redirect('/investments/' + req.params.id);
+});
+
+router.post('/:id/delete', function(req, res, next) {
+  const deletedInvestment = Investment.delete(req.params.id);
+  if (!deletedInvestment) {
+    return res.status(404).render('error', { message: 'Investment not found' });
+  }
+  res.redirect('/investments');
+});
+
+module.exports = router;

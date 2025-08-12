@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+      .form-group { margin-bottom: 15px; }
+      label { display: block; margin-bottom: 5px; font-weight: bold; }
+      input, select, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+      .btn { padding: 10px 20px; margin: 5px; text-decoration: none; border: none; border-radius: 4px; cursor: pointer; }
+      .btn-primary { background-color: #007bff; color: white; }
+      .btn-secondary { background-color: #6c757d; color: white; }
+      .form-row { display: flex; gap: 20px; }
+      .form-col { flex: 1; }
+    </style>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    
+    <form method="POST" action="/investments">
+      <div class="form-row">
+        <div class="form-col">
+          <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="broker">Broker:</label>
+            <input type="text" id="broker" name="broker" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="destination">Destination:</label>
+            <input type="text" id="destination" name="destination" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="instrument">Instrument:</label>
+            <input type="text" id="instrument" name="instrument" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="nominals">Nominals:</label>
+            <input type="number" step="0.01" id="nominals" name="nominals" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="purchase_price">Purchase Price:</label>
+            <input type="number" step="0.01" id="purchase_price" name="purchase_price" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="current_price">Current Price:</label>
+            <input type="number" step="0.01" id="current_price" name="current_price" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="sold">Sold:</label>
+            <input type="checkbox" id="sold" name="sold">
+          </div>
+        </div>
+        
+        <div class="form-col">
+          <div class="form-group">
+            <label for="total_purchase_ARS">Total Purchase ARS:</label>
+            <input type="number" step="0.01" id="total_purchase_ARS" name="total_purchase_ARS">
+          </div>
+          
+          <div class="form-group">
+            <label for="dollar_MEP_purchase_date">Dollar MEP Purchase Date:</label>
+            <input type="number" step="0.01" id="dollar_MEP_purchase_date" name="dollar_MEP_purchase_date">
+          </div>
+          
+          <div class="form-group">
+            <label for="total_purchase_USD">Total Purchase USD:</label>
+            <input type="number" step="0.01" id="total_purchase_USD" name="total_purchase_USD">
+          </div>
+          
+          <div class="form-group">
+            <label for="total_current_ARS">Total Current ARS:</label>
+            <input type="number" step="0.01" id="total_current_ARS" name="total_current_ARS">
+          </div>
+          
+          <div class="form-group">
+            <label for="return_ARS">Return ARS:</label>
+            <input type="number" step="0.01" id="return_ARS" name="return_ARS">
+          </div>
+          
+          <div class="form-group">
+            <label for="return_percentage_ARS">Return Percentage ARS:</label>
+            <input type="number" step="0.01" id="return_percentage_ARS" name="return_percentage_ARS">
+          </div>
+          
+          <div class="form-group">
+            <label for="tna_ARS">TNA ARS:</label>
+            <input type="number" step="0.01" id="tna_ARS" name="tna_ARS">
+          </div>
+        </div>
+        
+        <div class="form-col">
+          <div class="form-group">
+            <label for="total_current_USD">Total Current USD:</label>
+            <input type="number" step="0.01" id="total_current_USD" name="total_current_USD">
+          </div>
+          
+          <div class="form-group">
+            <label for="return_USD">Return USD:</label>
+            <input type="number" step="0.01" id="return_USD" name="return_USD">
+          </div>
+          
+          <div class="form-group">
+            <label for="return_percentage_USD">Return Percentage USD:</label>
+            <input type="number" step="0.01" id="return_percentage_USD" name="return_percentage_USD">
+          </div>
+          
+          <div class="form-group">
+            <label for="tna_USD">TNA USD:</label>
+            <input type="number" step="0.01" id="tna_USD" name="tna_USD">
+          </div>
+          
+          <div class="form-group">
+            <label for="average_returns">Average Returns:</label>
+            <input type="number" step="0.01" id="average_returns" name="average_returns">
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create Investment</button>
+        <a href="/investments" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </body>
+</html>
