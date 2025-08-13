@@ -23,8 +23,13 @@
       </div>
       
       <div>
-        <label for="destination">Destination:</label>
-        <input type="text" id="destination" name="destination" value="<%= investment.destination %>" required>
+        <label for="destination_id">Destination:</label>
+        <select id="destination_id" name="destination_id" required>
+          <option value="">Select destination...</option>
+          <% destinations.forEach(function(destination) { %>
+            <option value="<%= destination.id %>" <%= investment.destination_id == destination.id ? 'selected' : '' %>><%= destination.name %></option>
+          <% }); %>
+        </select>
       </div>
       
       <div>

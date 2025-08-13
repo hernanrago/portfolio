@@ -3,9 +3,11 @@ var router = express.Router();
 import Investment from '../models/Investment.js';
 import Instrument from '../models/Instrument.js';
 import Broker from '../models/Broker.js';
+import Destination from '../models/Destination.js';
 
 Instrument.seed();
 Broker.seed();
+Destination.seed();
 Investment.seed();
 
 router.get('/', function(req, res, next) {
@@ -16,7 +18,8 @@ router.get('/', function(req, res, next) {
 router.get('/new', function(req, res, next) {
   const instruments = Instrument.getActive();
   const brokers = Broker.getAll();
-  res.render('investments/new', { title: 'New Investment', instruments: instruments, brokers: brokers });
+  const destinations = Destination.getAll();
+  res.render('investments/new', { title: 'New Investment', instruments: instruments, brokers: brokers, destinations: destinations });
 });
 
 router.post('/', function(req, res, next) {
@@ -24,7 +27,7 @@ router.post('/', function(req, res, next) {
     sold: req.body.sold === 'on',
     date: req.body.date,
     broker_id: parseInt(req.body.broker_id) || null,
-    destination: req.body.destination,
+    destination_id: parseInt(req.body.destination_id) || null,
     instrument_id: parseInt(req.body.instrument_id) || null,
     nominals: parseFloat(req.body.nominals) || 0,
     purchase_price: parseFloat(req.body.purchase_price) || 0,
@@ -52,7 +55,8 @@ router.get('/:id/edit', function(req, res, next) {
   }
   const instruments = Instrument.getActive();
   const brokers = Broker.getAll();
-  res.render('investments/edit', { title: 'Edit Investment', investment: investment, instruments: instruments, brokers: brokers });
+  const destinations = Destination.getAll();
+  res.render('investments/edit', { title: 'Edit Investment', investment: investment, instruments: instruments, brokers: brokers, destinations: destinations });
 });
 
 router.post('/:id', function(req, res, next) {
@@ -60,7 +64,7 @@ router.post('/:id', function(req, res, next) {
     sold: req.body.sold === 'on',
     date: req.body.date,
     broker_id: parseInt(req.body.broker_id) || null,
-    destination: req.body.destination,
+    destination_id: parseInt(req.body.destination_id) || null,
     instrument_id: parseInt(req.body.instrument_id) || null,
     nominals: parseFloat(req.body.nominals) || 0,
     purchase_price: parseFloat(req.body.purchase_price) || 0,

@@ -1,5 +1,6 @@
 import Instrument from './Instrument.js';
 import Broker from './Broker.js';
+import Destination from './Destination.js';
 
 class Investment {
   constructor(data = {}) {
@@ -7,7 +8,7 @@ class Investment {
     this.sold = data.sold || false;
     this.date = data.date || '';
     this.broker_id = data.broker_id || null;
-    this.destination = data.destination || '';
+    this.destination_id = data.destination_id || null;
     this.instrument_id = data.instrument_id || null;
     this.nominals = data.nominals || 0;
     this.purchase_price = data.purchase_price || 0;
@@ -92,6 +93,11 @@ class Investment {
     return Broker.getById(this.broker_id);
   }
 
+  getDestination() {
+    if (!this.destination_id) return null;
+    return Destination.getById(this.destination_id);
+  }
+
   static investments = [];
   static nextId = 1;
 
@@ -133,7 +139,7 @@ class Investment {
       sold: false,
       date: '2024-04-16',
       broker_id: 1,
-      destination: 'largo_plazo',
+      destination_id: 2,
       instrument_id: 1, // Assuming instrument with ID 1 exists
       nominals: 13.00,
       purchase_price: 7611.73,

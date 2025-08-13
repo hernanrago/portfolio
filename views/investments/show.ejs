@@ -13,7 +13,10 @@
       <% const broker = investment.getBroker(); %>
       <%= broker ? broker.name : 'N/A' %>
     </p>
-    <p><strong>Destination:</strong> <%= investment.destination %></p>
+    <p><strong>Destination:</strong> 
+      <% const destination = investment.getDestination(); %>
+      <%= destination ? destination.name : 'N/A' %>
+    </p>
     <p><strong>Instrument:</strong> 
       <% const instrument = investment.getInstrument(); %>
       <%= instrument ? `${instrument.symbol} - ${instrument.name}` : 'N/A' %>
