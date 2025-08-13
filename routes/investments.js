@@ -18,17 +18,19 @@ router.get('/', function(req, res, next) {
 router.get('/new', function(req, res, next) {
   const brokers = Broker.getAll();
   const destinations = Destination.getAll();
-  res.render('investments/new', { title: 'New Investment', brokers: brokers, destinations: destinations });
+  const instruments = Instrument.getActive();
+  res.render('investments/new', { title: 'New Investment', brokers: brokers, destinations: destinations, instruments: instruments });
 });
 
 router.post('/', function(req, res, next) {
   const broker = Broker.getById(req.body.broker_id);
   const destination = Destination.getById(req.body.destination_id);
+  const instrument = Instrument.getById(req.body.instrument_id);
   const investmentData = {
     date: req.body.date,
     broker: broker ? broker.name : '',
     destination: destination ? destination.name : '',
-    instrument: req.body.instrument,
+    instrument: instrument ? instrument.symbol : '',
     nominals: parseFloat(req.body.nominals) || 0,
     currency: req.body.currency,
     total_purchase: parseFloat(req.body.total_purchase) || 0,
