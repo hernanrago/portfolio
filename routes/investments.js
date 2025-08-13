@@ -17,15 +17,17 @@ router.get('/', function(req, res, next) {
 
 router.get('/new', function(req, res, next) {
   const brokers = Broker.getAll();
-  res.render('investments/new', { title: 'New Investment', brokers: brokers });
+  const destinations = Destination.getAll();
+  res.render('investments/new', { title: 'New Investment', brokers: brokers, destinations: destinations });
 });
 
 router.post('/', function(req, res, next) {
   const broker = Broker.getById(req.body.broker_id);
+  const destination = Destination.getById(req.body.destination_id);
   const investmentData = {
     date: req.body.date,
     broker: broker ? broker.name : '',
-    destination: req.body.destination,
+    destination: destination ? destination.name : '',
     instrument: req.body.instrument,
     nominals: parseFloat(req.body.nominals) || 0,
     currency: req.body.currency,
