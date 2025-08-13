@@ -4,6 +4,7 @@ import Investment from '../models/Investment.js';
 import Instrument from '../models/Instrument.js';
 import Broker from '../models/Broker.js';
 
+Instrument.seed();
 Broker.seed();
 Investment.seed();
 
