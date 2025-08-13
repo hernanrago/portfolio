@@ -13,8 +13,13 @@
       </div>
       
       <div>
-        <label for="broker">Broker:</label>
-        <input type="text" id="broker" name="broker" value="<%= investment.broker %>" required>
+        <label for="broker_id">Broker:</label>
+        <select id="broker_id" name="broker_id" required>
+          <option value="">Select broker...</option>
+          <% brokers.forEach(function(broker) { %>
+            <option value="<%= broker.id %>" <%= investment.broker_id == broker.id ? 'selected' : '' %>><%= broker.name %></option>
+          <% }); %>
+        </select>
       </div>
       
       <div>

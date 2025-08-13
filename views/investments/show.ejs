@@ -9,7 +9,10 @@
     <h2>Basic Information</h2>
     <p><strong>ID:</strong> <%= investment.id %></p>
     <p><strong>Date:</strong> <%= investment.date %></p>
-    <p><strong>Broker:</strong> <%= investment.broker %></p>
+    <p><strong>Broker:</strong> 
+      <% const broker = investment.getBroker(); %>
+      <%= broker ? broker.name : 'N/A' %>
+    </p>
     <p><strong>Destination:</strong> <%= investment.destination %></p>
     <p><strong>Instrument:</strong> 
       <% const instrument = investment.getInstrument(); %>

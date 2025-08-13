@@ -1,11 +1,12 @@
 import Instrument from './Instrument.js';
+import Broker from './Broker.js';
 
 class Investment {
   constructor(data = {}) {
     this.id = data.id || null;
     this.sold = data.sold || false;
     this.date = data.date || '';
-    this.broker = data.broker || '';
+    this.broker_id = data.broker_id || null;
     this.destination = data.destination || '';
     this.instrument_id = data.instrument_id || null;
     this.nominals = data.nominals || 0;
@@ -86,6 +87,11 @@ class Investment {
     return Instrument.getById(this.instrument_id);
   }
 
+  getBroker() {
+    if (!this.broker_id) return null;
+    return Broker.getById(this.broker_id);
+  }
+
   static investments = [];
   static nextId = 1;
 
@@ -126,7 +132,7 @@ class Investment {
     const investment = this.create({
       sold: false,
       date: '2024-04-16',
-      broker: 'Balanz',
+      broker_id: 1,
       destination: 'largo_plazo',
       instrument_id: 1, // Assuming instrument with ID 1 exists
       nominals: 13.00,

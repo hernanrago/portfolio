@@ -2,7 +2,9 @@ import express from 'express';
 var router = express.Router();
 import Investment from '../models/Investment.js';
 import Instrument from '../models/Instrument.js';
+import Broker from '../models/Broker.js';
 
+Broker.seed();
 Investment.seed();
 
 router.get('/', function(req, res, next) {
@@ -12,14 +14,15 @@ router.get('/', function(req, res, next) {
 
 router.get('/new', function(req, res, next) {
   const instruments = Instrument.getActive();
-  res.render('investments/new', { title: 'New Investment', instruments: instruments });
+  const brokers = Broker.getAll();
+  res.render('investments/new', { title: 'New Investment', instruments: instruments, brokers: brokers });
 });
 
 router.post('/', function(req, res, next) {
   const investmentData = {
     sold: req.body.sold === 'on',
     date: req.body.date,
-    broker: req.body.broker,
+    broker_id: parseInt(req.body.broker_id) || null,
     destination: req.body.destination,
     instrument_id: parseInt(req.body.instrument_id) || null,
     nominals: parseFloat(req.body.nominals) || 0,
@@ -47,14 +50,15 @@ router.get('/:id/edit', function(req, res, next) {
     return res.status(404).render('error', { message: 'Investment not found' });
   }
   const instruments = Instrument.getActive();
-  res.render('investments/edit', { title: 'Edit Investment', investment: investment, instruments: instruments });
+  const brokers = Broker.getAll();
+  res.render('investments/edit', { title: 'Edit Investment', investment: investment, instruments: instruments, brokers: brokers });
 });
 
 router.post('/:id', function(req, res, next) {
   const investmentData = {
     sold: req.body.sold === 'on',
     date: req.body.date,
-    broker: req.body.broker,
+    broker_id: parseInt(req.body.broker_id) || null,
     destination: req.body.destination,
     instrument_id: parseInt(req.body.instrument_id) || null,
     nominals: parseFloat(req.body.nominals) || 0,

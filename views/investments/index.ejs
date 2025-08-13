@@ -29,7 +29,10 @@
             <tr>
               <td><%= investment.id %></td>
               <td><%= investment.date %></td>
-              <td><%= investment.broker %></td>
+              <td>
+                <% const broker = investment.getBroker(); %>
+                <%= broker ? broker.name : 'N/A' %>
+              </td>
               <td>
                 <% const instrument = investment.getInstrument(); %>
                 <%= instrument ? instrument.symbol : 'N/A' %>
