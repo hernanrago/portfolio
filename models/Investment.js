@@ -7,14 +7,13 @@ class Investment {
     this.id = data.id || null;
     this.sold = data.sold || false;
     this.date = data.date || '';
-    this.broker_id = data.broker_id || null;
-    this.destination_id = data.destination_id || null;
-    this.instrument_id = data.instrument_id || null;
+    this.broker = data.broker || '';
+    this.destination = data.destination || '';
+    this.instrument = data.instrument || '';
     this.nominals = data.nominals || 0;
-    this.purchase_price = data.purchase_price || 0;
-    this.total_purchase_ARS = data.total_purchase_ARS || 0;
-    this.dollar_MEP_purchase_date = data.dollar_MEP_purchase_date || 0;
-    this.total_purchase_USD = data.total_purchase_USD || 0;
+    this.currency = data.currency || '';
+    this.total_purchase = data.total_purchase || 0;
+    this.dollar_purchase_date = data.dollar_purchase_date || 0;
   }
 
   // Auto-calculated properties (getters)
@@ -28,51 +27,17 @@ class Investment {
     this._current_price = value;
   }
 
-  get total_current_ARS() {
+  get total_current() {
     return this.nominals * this.current_price;
   }
 
-  get return_ARS() {
-    return this.total_current_ARS - this.total_purchase_ARS;
+  get return_amount() {
+    return this.total_current - this.total_purchase;
   }
 
-  get return_percentage_ARS() {
-    if (this.total_purchase_ARS === 0) return 0;
-    return (this.return_ARS / this.total_purchase_ARS) * 100;
-  }
-
-  get tna_ARS() {
-    // TNA calculation would need the investment period
-    // This is a simplified calculation - you may need to adjust based on your formula
-    const daysHeld = this.getDaysHeld();
-    if (daysHeld === 0) return 0;
-    return (this.return_percentage_ARS / daysHeld) * 365;
-  }
-
-  get total_current_USD() {
-    // Would need current USD exchange rate
-    // For now, using a placeholder calculation
-    const currentMEPRate = this.dollar_MEP_purchase_date; // You'd get current MEP rate
-    return this.total_current_ARS / currentMEPRate;
-  }
-
-  get return_USD() {
-    return this.total_current_USD - this.total_purchase_USD;
-  }
-
-  get return_percentage_USD() {
-    if (this.total_purchase_USD === 0) return 0;
-    return (this.return_USD / this.total_purchase_USD) * 100;
-  }
-
-  get tna_USD() {
-    const daysHeld = this.getDaysHeld();
-    if (daysHeld === 0) return 0;
-    return (this.return_percentage_USD / daysHeld) * 365;
-  }
-
-  get average_returns() {
-    return (this.tna_ARS + this.tna_USD) / 2;
+  get return_percentage() {
+    if (this.total_purchase === 0) return 0;
+    return (this.return_amount / this.total_purchase) * 100;
   }
 
   getDaysHeld() {
@@ -83,20 +48,6 @@ class Investment {
     return Math.ceil(timeDiff / (1000 * 3600 * 24));
   }
 
-  getInstrument() {
-    if (!this.instrument_id) return null;
-    return Instrument.getById(this.instrument_id);
-  }
-
-  getBroker() {
-    if (!this.broker_id) return null;
-    return Broker.getById(this.broker_id);
-  }
-
-  getDestination() {
-    if (!this.destination_id) return null;
-    return Destination.getById(this.destination_id);
-  }
 
   static investments = [];
   static nextId = 1;
@@ -138,14 +89,13 @@ class Investment {
     const investment = this.create({
       sold: false,
       date: '2024-04-16',
-      broker_id: 1,
-      destination_id: 2,
-      instrument_id: 1, // Assuming instrument with ID 1 exists
+      broker: 'Cocos Capital',
+      destination: 'CEDEARS',
+      instrument: 'AAPL',
       nominals: 13.00,
-      purchase_price: 7611.73,
-      total_purchase_ARS: 98952.53,
-      dollar_MEP_purchase_date: 1031.63,
-      total_purchase_USD: 95.92
+      currency: 'ARS',
+      total_purchase: 98952.53,
+      dollar_purchase_date: 1031.63
     });
     
     // Set current price manually for demonstration

@@ -16,24 +16,21 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/new', function(req, res, next) {
-  const instruments = Instrument.getActive();
   const brokers = Broker.getAll();
-  const destinations = Destination.getAll();
-  res.render('investments/new', { title: 'New Investment', instruments: instruments, brokers: brokers, destinations: destinations });
+  res.render('investments/new', { title: 'New Investment', brokers: brokers });
 });
 
 router.post('/', function(req, res, next) {
+  const broker = Broker.getById(req.body.broker_id);
   const investmentData = {
-    sold: req.body.sold === 'on',
     date: req.body.date,
-    broker_id: parseInt(req.body.broker_id) || null,
-    destination_id: parseInt(req.body.destination_id) || null,
-    instrument_id: parseInt(req.body.instrument_id) || null,
+    broker: broker ? broker.name : '',
+    destination: req.body.destination,
+    instrument: req.body.instrument,
     nominals: parseFloat(req.body.nominals) || 0,
-    purchase_price: parseFloat(req.body.purchase_price) || 0,
-    total_purchase_ARS: parseFloat(req.body.total_purchase_ARS) || 0,
-    dollar_MEP_purchase_date: parseFloat(req.body.dollar_MEP_purchase_date) || 0,
-    total_purchase_USD: parseFloat(req.body.total_purchase_USD) || 0
+    currency: req.body.currency,
+    total_purchase: parseFloat(req.body.total_purchase) || 0,
+    dollar_purchase_date: parseFloat(req.body.dollar_purchase_date) || 0
   };
   
   Investment.create(investmentData);
@@ -53,24 +50,19 @@ router.get('/:id/edit', function(req, res, next) {
   if (!investment) {
     return res.status(404).render('error', { message: 'Investment not found' });
   }
-  const instruments = Instrument.getActive();
-  const brokers = Broker.getAll();
-  const destinations = Destination.getAll();
-  res.render('investments/edit', { title: 'Edit Investment', investment: investment, instruments: instruments, brokers: brokers, destinations: destinations });
+  res.render('investments/edit', { title: 'Edit Investment', investment: investment });
 });
 
 router.post('/:id', function(req, res, next) {
   const investmentData = {
-    sold: req.body.sold === 'on',
     date: req.body.date,
-    broker_id: parseInt(req.body.broker_id) || null,
-    destination_id: parseInt(req.body.destination_id) || null,
-    instrument_id: parseInt(req.body.instrument_id) || null,
+    broker: req.body.broker,
+    destination: req.body.destination,
+    instrument: req.body.instrument,
     nominals: parseFloat(req.body.nominals) || 0,
-    purchase_price: parseFloat(req.body.purchase_price) || 0,
-    total_purchase_ARS: parseFloat(req.body.total_purchase_ARS) || 0,
-    dollar_MEP_purchase_date: parseFloat(req.body.dollar_MEP_purchase_date) || 0,
-    total_purchase_USD: parseFloat(req.body.total_purchase_USD) || 0
+    currency: req.body.currency,
+    total_purchase: parseFloat(req.body.total_purchase) || 0,
+    dollar_purchase_date: parseFloat(req.body.dollar_purchase_date) || 0
   };
   
   const updatedInvestment = Investment.update(req.params.id, investmentData);
