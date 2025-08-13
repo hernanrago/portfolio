@@ -88,4 +88,12 @@ class Instrument {
   }
 }
 
-module.exports = Instrument;
+// Export individual methods
+export const getAll = () => Instrument.getAll();
+export const create = (data) => Instrument.create(data);
+export const getById = (id) => Instrument.getById(id);
+export const update = (id, data) => Instrument.update(id, data);
+export const deleteInstrument = (id) => Instrument.delete(id);
+export const getActive = () => Instrument.getActive();
+
+export default Instrument;

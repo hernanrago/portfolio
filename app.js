@@ -1,13 +1,17 @@
 import createError from 'http-errors';
 import express, { json, urlencoded } from 'express';
-import { join } from 'path';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-import indexRouter from './routes/index';
-import usersRouter from './routes/users';
-import investmentsRouter from './routes/investments';
-import instrumentsRouter from './routes/instruments';
+import indexRouter from './routes/index.js';
+import usersRouter from './routes/users.js';
+import investmentsRouter from './routes/investments.js';
+import instrumentsRouter from './routes/instruments.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 var app = express();
 
@@ -19,7 +23,7 @@ app.use(logger('dev'));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use((join(__dirname, 'public')));
+app.use(express.static(join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

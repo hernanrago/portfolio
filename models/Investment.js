@@ -1,3 +1,5 @@
+import Instrument from './Instrument.js';
+
 class Investment {
   constructor(data = {}) {
     this.id = data.id || null;
@@ -77,6 +79,11 @@ class Investment {
     const currentDate = new Date();
     const timeDiff = currentDate.getTime() - purchaseDate.getTime();
     return Math.ceil(timeDiff / (1000 * 3600 * 24));
+  }
+
+  getInstrument() {
+    if (!this.instrument_id) return null;
+    return Instrument.getById(this.instrument_id);
   }
 
   static investments = [];

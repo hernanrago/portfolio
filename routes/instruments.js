@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var Instrument = require('../models/Instrument');
+import { Router } from 'express';
+var router = Router();
+import { getAll, create, getById, update, deleteInstrument as deleteInstrument } from '../models/Instrument.js';
 
 // List all instruments
 router.get('/', function(req, res, next) {
-  const instruments = Instrument.getAll();
+  const instruments = getAll();
   res.render('instruments/index', { title: 'Instruments', instruments: instruments });
 });
 
@@ -24,13 +24,13 @@ router.post('/', function(req, res, next) {
     active: req.body.active === 'on'
   };
   
-  Instrument.create(data);
+  create(data);
   res.redirect('/instruments');
 });
 
 // Show single instrument
 router.get('/:id', function(req, res, next) {
-  const instrument = Instrument.getById(req.params.id);
+  const instrument = getById(req.params.id);
   if (!instrument) {
     return res.status(404).send('Instrument not found');
   }
@@ -39,7 +39,7 @@ router.get('/:id', function(req, res, next) {
 
 // Show form for editing instrument
 router.get('/:id/edit', function(req, res, next) {
-  const instrument = Instrument.getById(req.params.id);
+  const instrument = getById(req.params.id);
   if (!instrument) {
     return res.status(404).send('Instrument not found');
   }
@@ -57,7 +57,7 @@ router.post('/:id', function(req, res, next) {
     active: req.body.active === 'on'
   };
   
-  const instrument = Instrument.update(req.params.id, data);
+  const instrument = update(req.params.id, data);
   if (!instrument) {
     return res.status(404).send('Instrument not found');
   }
@@ -66,11 +66,11 @@ router.post('/:id', function(req, res, next) {
 
 // Delete instrument
 router.post('/:id/delete', function(req, res, next) {
-  const instrument = Instrument.delete(req.params.id);
+  const instrument = deleteInstrument(req.params.id);
   if (!instrument) {
     return res.status(404).send('Instrument not found');
   }
   res.redirect('/instruments');
 });
 
-module.exports = router;
+export default router;

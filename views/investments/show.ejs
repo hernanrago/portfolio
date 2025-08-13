@@ -2,139 +2,50 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <style>
-      .detail-container { max-width: 800px; margin: 0 auto; }
-      .detail-group { margin-bottom: 20px; }
-      .detail-label { font-weight: bold; margin-right: 10px; }
-      .detail-value { color: #333; }
-      .btn { padding: 10px 20px; margin: 5px; text-decoration: none; border-radius: 4px; }
-      .btn-primary { background-color: #007bff; color: white; }
-      .btn-secondary { background-color: #6c757d; color: white; }
-      .btn-danger { background-color: #dc3545; color: white; }
-      .detail-row { display: flex; margin-bottom: 10px; }
-      .detail-section { background-color: #f8f9fa; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
-      .section-title { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: #495057; }
-    </style>
   </head>
   <body>
-    <div class="detail-container">
-      <h1><%= title %></h1>
-      
-      <div class="detail-section">
-        <div class="section-title">Basic Information</div>
-        <div class="detail-row">
-          <span class="detail-label">ID:</span>
-          <span class="detail-value"><%= investment.id %></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Date:</span>
-          <span class="detail-value"><%= investment.date %></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Broker:</span>
-          <span class="detail-value"><%= investment.broker %></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Destination:</span>
-          <span class="detail-value"><%= investment.destination %></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Instrument:</span>
-          <% const instrument = investment.getInstrument(); %>
-          <span class="detail-value">
-            <%= instrument ? `${instrument.symbol} - ${instrument.name}` : 'N/A' %>
-          </span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Sold:</span>
-          <span class="detail-value"><%= investment.sold ? 'Yes' : 'No' %></span>
-        </div>
-      </div>
-      
-      <div class="detail-section">
-        <div class="section-title">Investment Details</div>
-        <div class="detail-row">
-          <span class="detail-label">Nominals:</span>
-          <span class="detail-value"><%= investment.nominals %></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Purchase Price:</span>
-          <span class="detail-value">$<%= investment.purchase_price.toFixed(2) %></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Current Price:</span>
-          <span class="detail-value">$<%= investment.current_price.toFixed(2) %></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Dollar MEP Purchase Date:</span>
-          <span class="detail-value"><%= investment.dollar_MEP_purchase_date.toFixed(2) %></span>
-        </div>
-      </div>
-      
-      <div class="detail-section">
-        <div class="section-title">ARS Performance</div>
-        <div class="detail-row">
-          <span class="detail-label">Total Purchase ARS:</span>
-          <span class="detail-value">$<%= investment.total_purchase_ARS.toFixed(2) %></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Total Current ARS:</span>
-          <span class="detail-value">$<%= investment.total_current_ARS.toFixed(2) %></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Return ARS:</span>
-          <span class="detail-value">$<%= investment.return_ARS.toFixed(2) %></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Return Percentage ARS:</span>
-          <span class="detail-value"><%= investment.return_percentage_ARS.toFixed(2) %>%</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">TNA ARS:</span>
-          <span class="detail-value"><%= investment.tna_ARS.toFixed(2) %>%</span>
-        </div>
-      </div>
-      
-      <div class="detail-section">
-        <div class="section-title">USD Performance</div>
-        <div class="detail-row">
-          <span class="detail-label">Total Purchase USD:</span>
-          <span class="detail-value">$<%= investment.total_purchase_USD.toFixed(2) %></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Total Current USD:</span>
-          <span class="detail-value">$<%= investment.total_current_USD.toFixed(2) %></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Return USD:</span>
-          <span class="detail-value">$<%= investment.return_USD.toFixed(2) %></span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">Return Percentage USD:</span>
-          <span class="detail-value"><%= investment.return_percentage_USD.toFixed(2) %>%</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">TNA USD:</span>
-          <span class="detail-value"><%= investment.tna_USD.toFixed(2) %>%</span>
-        </div>
-      </div>
-      
-      <div class="detail-section">
-        <div class="section-title">Summary</div>
-        <div class="detail-row">
-          <span class="detail-label">Average Returns:</span>
-          <span class="detail-value"><%= investment.average_returns.toFixed(2) %>%</span>
-        </div>
-      </div>
-      
-      <div class="detail-group">
-        <a href="/investments/<%= investment.id %>/edit" class="btn btn-primary">Edit</a>
-        <form method="POST" action="/investments/<%= investment.id %>/delete" style="display: inline;">
-          <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this investment?')">Delete</button>
-        </form>
-        <a href="/investments" class="btn btn-secondary">Back to Investments</a>
-      </div>
+    <h1><%= title %></h1>
+    
+    <h2>Basic Information</h2>
+    <p><strong>ID:</strong> <%= investment.id %></p>
+    <p><strong>Date:</strong> <%= investment.date %></p>
+    <p><strong>Broker:</strong> <%= investment.broker %></p>
+    <p><strong>Destination:</strong> <%= investment.destination %></p>
+    <p><strong>Instrument:</strong> 
+      <% const instrument = investment.getInstrument(); %>
+      <%= instrument ? `${instrument.symbol} - ${instrument.name}` : 'N/A' %>
+    </p>
+    <p><strong>Sold:</strong> <%= investment.sold ? 'Yes' : 'No' %></p>
+    
+    <h2>Investment Details</h2>
+    <p><strong>Nominals:</strong> <%= investment.nominals %></p>
+    <p><strong>Purchase Price:</strong> $<%= investment.purchase_price.toFixed(2) %></p>
+    <p><strong>Current Price:</strong> $<%= investment.current_price.toFixed(2) %></p>
+    <p><strong>Dollar MEP Purchase Date:</strong> <%= investment.dollar_MEP_purchase_date.toFixed(2) %></p>
+    
+    <h2>ARS Performance</h2>
+    <p><strong>Total Purchase ARS:</strong> $<%= investment.total_purchase_ARS.toFixed(2) %></p>
+    <p><strong>Total Current ARS:</strong> $<%= investment.total_current_ARS.toFixed(2) %></p>
+    <p><strong>Return ARS:</strong> $<%= investment.return_ARS.toFixed(2) %></p>
+    <p><strong>Return Percentage ARS:</strong> <%= investment.return_percentage_ARS.toFixed(2) %>%</p>
+    <p><strong>TNA ARS:</strong> <%= investment.tna_ARS.toFixed(2) %>%</p>
+    
+    <h2>USD Performance</h2>
+    <p><strong>Total Purchase USD:</strong> $<%= investment.total_purchase_USD.toFixed(2) %></p>
+    <p><strong>Total Current USD:</strong> $<%= investment.total_current_USD.toFixed(2) %></p>
+    <p><strong>Return USD:</strong> $<%= investment.return_USD.toFixed(2) %></p>
+    <p><strong>Return Percentage USD:</strong> <%= investment.return_percentage_USD.toFixed(2) %>%</p>
+    <p><strong>TNA USD:</strong> <%= investment.tna_USD.toFixed(2) %>%</p>
+    
+    <h2>Summary</h2>
+    <p><strong>Average Returns:</strong> <%= investment.average_returns.toFixed(2) %>%</p>
+    
+    <div>
+      <a href="/investments/<%= investment.id %>/edit">Edit</a>
+      <form method="POST" action="/investments/<%= investment.id %>/delete" style="display: inline;">
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this investment?')">Delete</button>
+      </form>
+      <a href="/investments">Back to Investments</a>
     </div>
   </body>
 </html>

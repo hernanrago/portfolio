@@ -1,7 +1,7 @@
-var express = require('express');
+import express from 'express';
 var router = express.Router();
-var Investment = require('../models/Investment');
-var Instrument = require('../models/Instrument');
+import Investment from '../models/Investment.js';
+import Instrument from '../models/Instrument.js';
 
 Investment.seed();
 
@@ -79,4 +79,4 @@ router.post('/:id/delete', function(req, res, next) {
   res.redirect('/investments');
 });
 
-module.exports = router;
+export default router;

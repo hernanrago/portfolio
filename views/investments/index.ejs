@@ -2,22 +2,11 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <style>
-      table { border-collapse: collapse; width: 100%; margin: 20px 0; }
-      th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-      th { background-color: #f2f2f2; }
-      .btn { padding: 5px 10px; margin: 2px; text-decoration: none; border-radius: 3px; }
-      .btn-primary { background-color: #007bff; color: white; }
-      .btn-success { background-color: #28a745; color: white; }
-      .btn-danger { background-color: #dc3545; color: white; }
-      .btn-secondary { background-color: #6c757d; color: white; }
-    </style>
   </head>
   <body>
     <h1><%= title %></h1>
     
-    <a href="/investments/new" class="btn btn-success">New Investment</a>
+    <a href="/investments/new">New Investment</a>
     
     <% if (investments.length > 0) { %>
       <table>
@@ -51,10 +40,10 @@
               <td><%= investment.return_percentage_ARS.toFixed(2) %>%</td>
               <td><%= investment.return_percentage_USD.toFixed(2) %>%</td>
               <td>
-                <a href="/investments/<%= investment.id %>" class="btn btn-primary">View</a>
-                <a href="/investments/<%= investment.id %>/edit" class="btn btn-secondary">Edit</a>
+                <a href="/investments/<%= investment.id %>">View</a>
+                <a href="/investments/<%= investment.id %>/edit">Edit</a>
                 <form method="POST" action="/investments/<%= investment.id %>/delete" style="display: inline;">
-                  <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                  <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
                 </form>
               </td>
             </tr>
