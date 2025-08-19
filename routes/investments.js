@@ -34,7 +34,7 @@ router.post('/', function(req, res, next) {
     nominals: parseFloat(req.body.nominals) || 0,
     currency: req.body.currency,
     total_purchase: parseFloat(req.body.total_purchase) || 0,
-    dollar_purchase_date: parseFloat(req.body.dollar_purchase_date) || 0
+    purchase_date_dollar: parseFloat(req.body.purchase_date_dollar) || 0
   };
   
   Investment.create(investmentData);
@@ -54,19 +54,25 @@ router.get('/:id/edit', function(req, res, next) {
   if (!investment) {
     return res.status(404).render('error', { message: 'Investment not found' });
   }
-  res.render('investments/edit', { title: 'Edit Investment', investment: investment });
+  const brokers = Broker.getAll();
+  const destinations = Destination.getAll();
+  const instruments = Instrument.getActive();
+  res.render('investments/edit', { title: 'Edit Investment', investment: investment, brokers: brokers, destinations: destinations, instruments: instruments });
 });
 
 router.post('/:id', function(req, res, next) {
+  const broker = Broker.getById(req.body.broker_id);
+  const destination = Destination.getById(req.body.destination_id);
+  const instrument = Instrument.getById(req.body.instrument_id);
   const investmentData = {
     date: req.body.date,
-    broker: req.body.broker,
-    destination: req.body.destination,
-    instrument: req.body.instrument,
+    broker: broker ? broker.name : '',
+    destination: destination ? destination.name : '',
+    instrument: instrument ? instrument.symbol : '',
     nominals: parseFloat(req.body.nominals) || 0,
     currency: req.body.currency,
     total_purchase: parseFloat(req.body.total_purchase) || 0,
-    dollar_purchase_date: parseFloat(req.body.dollar_purchase_date) || 0
+    purchase_date_dollar: parseFloat(req.body.purchase_date_dollar) || 0
   };
   
   const updatedInvestment = Investment.update(req.params.id, investmentData);

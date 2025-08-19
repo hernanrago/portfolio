@@ -15,12 +15,12 @@
             <th>ID</th>
             <th>Date</th>
             <th>Broker</th>
+            <th>Destination</th>
             <th>Instrument</th>
-            <th>Sold</th>
-            <th>Purchase Price</th>
-            <th>Current Price</th>
-            <th>Return ARS %</th>
-            <th>Return USD %</th>
+            <th>Nominals</th>
+            <th>Currency</th>
+            <th>Total Purchase</th>
+            <th>Purchase Date Dollar</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -29,19 +29,13 @@
             <tr>
               <td><%= investment.id %></td>
               <td><%= investment.date %></td>
-              <td>
-                <% const broker = investment.getBroker(); %>
-                <%= broker ? broker.name : 'N/A' %>
-              </td>
-              <td>
-                <% const instrument = investment.getInstrument(); %>
-                <%= instrument ? instrument.symbol : 'N/A' %>
-              </td>
-              <td><%= investment.sold ? 'Yes' : 'No' %></td>
-              <td>$<%= investment.purchase_price.toFixed(2) %></td>
-              <td>$<%= investment.current_price.toFixed(2) %></td>
-              <td><%= investment.return_percentage_ARS.toFixed(2) %>%</td>
-              <td><%= investment.return_percentage_USD.toFixed(2) %>%</td>
+              <td><%= investment.broker || 'N/A' %></td>
+              <td><%= investment.destination || 'N/A' %></td>
+              <td><%= investment.instrument || 'N/A' %></td>
+              <td><%= investment.nominals %></td>
+              <td><%= investment.currency || 'N/A' %></td>
+              <td><%= investment.total_purchase ? investment.total_purchase.toFixed(2) : '0.00' %></td>
+              <td><%= investment.purchase_date_dollar ? investment.purchase_date_dollar.toFixed(2) : '0.00' %></td>
               <td>
                 <a href="/investments/<%= investment.id %>">View</a>
                 <a href="/investments/<%= investment.id %>/edit">Edit</a>

@@ -13,7 +13,7 @@ class Investment {
     this.nominals = data.nominals || 0;
     this.currency = data.currency || '';
     this.total_purchase = data.total_purchase || 0;
-    this.dollar_purchase_date = data.dollar_purchase_date || 0;
+    this.purchase_date_dollar = data.purchase_date_dollar || 0;
   }
 
   // Auto-calculated properties (getters)
@@ -95,7 +95,7 @@ class Investment {
       nominals: 13.00,
       currency: 'ARS',
       total_purchase: 98952.53,
-      dollar_purchase_date: 1031.63
+      purchase_date_dollar: 1031.63
     });
     
     // Set current price manually for demonstration

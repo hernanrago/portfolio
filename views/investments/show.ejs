@@ -9,42 +9,13 @@
     <h2>Basic Information</h2>
     <p><strong>ID:</strong> <%= investment.id %></p>
     <p><strong>Date:</strong> <%= investment.date %></p>
-    <p><strong>Broker:</strong> 
-      <% const broker = investment.getBroker(); %>
-      <%= broker ? broker.name : 'N/A' %>
-    </p>
-    <p><strong>Destination:</strong> 
-      <% const destination = investment.getDestination(); %>
-      <%= destination ? destination.name : 'N/A' %>
-    </p>
-    <p><strong>Instrument:</strong> 
-      <% const instrument = investment.getInstrument(); %>
-      <%= instrument ? `${instrument.symbol} - ${instrument.name}` : 'N/A' %>
-    </p>
-    <p><strong>Sold:</strong> <%= investment.sold ? 'Yes' : 'No' %></p>
-    
-    <h2>Investment Details</h2>
+    <p><strong>Broker:</strong> <%= investment.broker || 'N/A' %></p>
+    <p><strong>Destination:</strong> <%= investment.destination || 'N/A' %></p>
+    <p><strong>Instrument:</strong> <%= investment.instrument || 'N/A' %></p>
     <p><strong>Nominals:</strong> <%= investment.nominals %></p>
-    <p><strong>Purchase Price:</strong> $<%= investment.purchase_price.toFixed(2) %></p>
-    <p><strong>Current Price:</strong> $<%= investment.current_price.toFixed(2) %></p>
-    <p><strong>Dollar MEP Purchase Date:</strong> <%= investment.dollar_MEP_purchase_date.toFixed(2) %></p>
-    
-    <h2>ARS Performance</h2>
-    <p><strong>Total Purchase ARS:</strong> $<%= investment.total_purchase_ARS.toFixed(2) %></p>
-    <p><strong>Total Current ARS:</strong> $<%= investment.total_current_ARS.toFixed(2) %></p>
-    <p><strong>Return ARS:</strong> $<%= investment.return_ARS.toFixed(2) %></p>
-    <p><strong>Return Percentage ARS:</strong> <%= investment.return_percentage_ARS.toFixed(2) %>%</p>
-    <p><strong>TNA ARS:</strong> <%= investment.tna_ARS.toFixed(2) %>%</p>
-    
-    <h2>USD Performance</h2>
-    <p><strong>Total Purchase USD:</strong> $<%= investment.total_purchase_USD.toFixed(2) %></p>
-    <p><strong>Total Current USD:</strong> $<%= investment.total_current_USD.toFixed(2) %></p>
-    <p><strong>Return USD:</strong> $<%= investment.return_USD.toFixed(2) %></p>
-    <p><strong>Return Percentage USD:</strong> <%= investment.return_percentage_USD.toFixed(2) %>%</p>
-    <p><strong>TNA USD:</strong> <%= investment.tna_USD.toFixed(2) %>%</p>
-    
-    <h2>Summary</h2>
-    <p><strong>Average Returns:</strong> <%= investment.average_returns.toFixed(2) %>%</p>
+    <p><strong>Currency:</strong> <%= investment.currency || 'N/A' %></p>
+    <p><strong>Total Purchase:</strong> <%= investment.total_purchase ? investment.total_purchase.toFixed(2) : '0.00' %></p>
+    <p><strong>Purchase Date Dollar:</strong> <%= investment.purchase_date_dollar ? investment.purchase_date_dollar.toFixed(2) : '0.00' %></p>
     
     <div>
       <a href="/investments/<%= investment.id %>/edit">Edit</a>

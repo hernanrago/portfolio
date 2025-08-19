@@ -17,7 +17,7 @@
         <select id="broker_id" name="broker_id" required>
           <option value="">Select broker...</option>
           <% brokers.forEach(function(broker) { %>
-            <option value="<%= broker.id %>" <%= investment.broker_id == broker.id ? 'selected' : '' %>><%= broker.name %></option>
+            <option value="<%= broker.id %>" <%= investment.broker == broker.name ? 'selected' : '' %>><%= broker.name %></option>
           <% }); %>
         </select>
       </div>
@@ -27,7 +27,7 @@
         <select id="destination_id" name="destination_id" required>
           <option value="">Select destination...</option>
           <% destinations.forEach(function(destination) { %>
-            <option value="<%= destination.id %>" <%= investment.destination_id == destination.id ? 'selected' : '' %>><%= destination.name %></option>
+            <option value="<%= destination.id %>" <%= investment.destination == destination.name ? 'selected' : '' %>><%= destination.name %></option>
           <% }); %>
         </select>
       </div>
@@ -37,39 +37,33 @@
         <select id="instrument_id" name="instrument_id" required>
           <option value="">Select instrument...</option>
           <% instruments.forEach(function(instrument) { %>
-            <option value="<%= instrument.id %>" <%= investment.instrument_id == instrument.id ? 'selected' : '' %>><%= instrument.symbol %> - <%= instrument.name %></option>
+            <option value="<%= instrument.id %>" <%= investment.instrument == instrument.symbol ? 'selected' : '' %>><%= instrument.symbol %> - <%= instrument.name %></option>
           <% }); %>
         </select>
       </div>
       
       <div>
         <label for="nominals">Nominals:</label>
-        <input type="number" step="0.01" id="nominals" name="nominals" value="<%= investment.nominals %>" required>
+        <input type="number" step="1" id="nominals" name="nominals" value="<%= investment.nominals %>" required>
       </div>
       
       <div>
-        <label for="purchase_price">Purchase Price:</label>
-        <input type="number" step="0.01" id="purchase_price" name="purchase_price" value="<%= investment.purchase_price %>" required>
+        <label for="currency">Currency:</label>
+        <select id="currency" name="currency" required>
+          <option value="">Select currency...</option>
+          <option value="ARS" <%= investment.currency == 'ARS' ? 'selected' : '' %>>ARS</option>
+          <option value="USD" <%= investment.currency == 'USD' ? 'selected' : '' %>>USD</option>
+        </select>
       </div>
       
       <div>
-        <label for="sold">Sold:</label>
-        <input type="checkbox" id="sold" name="sold" <%= investment.sold ? 'checked' : '' %>>
+        <label for="total_purchase">Total Purchase:</label>
+        <input type="number" step="0.01" id="total_purchase" name="total_purchase" value="<%= investment.total_purchase %>" required>
       </div>
       
       <div>
-        <label for="total_purchase_ARS">Total Purchase ARS:</label>
-        <input type="number" step="0.01" id="total_purchase_ARS" name="total_purchase_ARS" value="<%= investment.total_purchase_ARS %>">
-      </div>
-      
-      <div>
-        <label for="dollar_MEP_purchase_date">Dollar MEP Purchase Date:</label>
-        <input type="number" step="0.01" id="dollar_MEP_purchase_date" name="dollar_MEP_purchase_date" value="<%= investment.dollar_MEP_purchase_date %>">
-      </div>
-      
-      <div>
-        <label for="total_purchase_USD">Total Purchase USD:</label>
-        <input type="number" step="0.01" id="total_purchase_USD" name="total_purchase_USD" value="<%= investment.total_purchase_USD %>">
+        <label for="purchase_date_dollar">Purchase Date Dollar:</label>
+        <input type="number" step="0.01" id="purchase_date_dollar" name="purchase_date_dollar" value="<%= investment.purchase_date_dollar %>" required>
       </div>
       
       <div>
